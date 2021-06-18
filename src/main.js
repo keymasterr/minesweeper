@@ -1,4 +1,4 @@
-import './style.styl'
+import './style.sass'
 import buildField from './game.js'
 
 let cols = 9,

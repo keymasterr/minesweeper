@@ -6,8 +6,12 @@
   --cell-bg-h: #c4c4c4
   --cell-bdc: #fff
 
+body
+  text-align: center
+
 h1
   color: red
+  margin-bottom: 0
 
 label + label
   margin-bottom: 0.5em
@@ -17,11 +21,12 @@ label + label
   line-height: 1
   color: #444
 
-#field-controls
-  margin: 0.5em 0
+  #field-info-text
+    margin-right: 2em
+    font-variant-numeric: tabular-nums
 
-  #reset-btn
-    margin-bottom: 1em
+#field-controls
+  margin: 0.5em 0 1.5em
 
   .settings
     .settings-section
@@ -31,6 +36,7 @@ label + label
   position: relative
   display: flex
   flex-wrap: wrap
+  margin: 0 auto
   background-color: var(--field-bg)
   border: 1px solid var(--field-bdc)
   border-top-width: 0
@@ -40,8 +46,9 @@ label + label
 
   &.gameover
     pointer-events: none
-    --field-bg: #c4c4c4
-    --cell-bdc: #d6d6d6
+    --field-bg: #f7e1e1
+    --cell-bdc: #fee
+
   &.gameover.win
     --field-bg: #d8eccb
     --cell-bdc: #f1ffe8

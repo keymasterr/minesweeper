@@ -1,5 +1,5 @@
 const field = document.querySelector('#field');
-const fieldInfo = document.querySelector('#field-info');
+const fieldInfoText = document.querySelector('#field-info-text');
 
 let fieldModel = {};
 
@@ -11,7 +11,7 @@ export default function buildField(cols = 9, rows = 9, bmbs = 10) {
     field.innerHTML = '';
     field.classList.remove('gameover', 'win');
 
-    fieldInfo.innerHTML = `${cols}×${rows}, <span id="flags-number">0</span>/${bmbs} mines`;
+    fieldInfoText.innerHTML = `${cols}×${rows}, <span id="flags-number">0</span>/${bmbs} mines`;
 
     let objArr = [],
         bmbArr = [],
@@ -44,7 +44,6 @@ export default function buildField(cols = 9, rows = 9, bmbs = 10) {
         const el = document.createElement('div');
         el.classList.add('cell');
         el.setAttribute('ndx', i);
-        // el.textContent = i;
 
         el.addEventListener('click', cellClick.bind(this, i));
         el.addEventListener('contextmenu', cellRightClick.bind(this, i));
@@ -77,19 +76,9 @@ function cellClick(ndx) {
     const el = field.querySelector(`[ndx="${ndx}"]`);
     let bmbsQ = 0;
 
-    el.classList.add(`bombs-num${bmbsQ}`, 'open');
+    el.classList.add('open');
     elM.open = true;
     fieldModel.cellsOpen++;
-
-    el.classList.add('flash');
-    setTimeout(() => {
-        el.classList.remove('flash');
-    }, 500);
-
-    if (fieldModel.cellsOpen === (fieldModel.cellsNumber - fieldModel.bombs)) {
-        gameover(undefined, true);
-        return
-    }
 
     if (elM.bomb) {
         el.classList.add('bomb');
@@ -97,8 +86,12 @@ function cellClick(ndx) {
         return
     }
 
-    let surArr = findSurrounds(ndx);
+    el.classList.add('flash');
+    setTimeout(() => {
+        el.classList.remove('flash');
+    }, 500);
 
+    let surArr = findSurrounds(ndx);
     surArr.forEach(x => {
         fieldModel.cells[x].bomb && bmbsQ++;
 
@@ -111,13 +104,19 @@ function cellClick(ndx) {
         }, 100);
     });
 
-    el.classList.add(`bombs-num${bmbsQ}`, 'open');
+    el.classList.add(`bombs-num${bmbsQ}`);
     elM.open = true;
+    fieldModel.cellsOpen++;
 
     if (bmbsQ) {
         el.textContent = bmbsQ;
     } else {
         surArr.forEach(x => cellClick(x));
+    }
+
+    if (fieldModel.cellsOpen === (fieldModel.cellsNumber - fieldModel.bombs)) {
+        gameover(undefined, true);
+        return
     }
 }
 
