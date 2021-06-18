@@ -8,7 +8,6 @@ let cols = 9,
 document.querySelector('#reset-btn').addEventListener('click', () => {
     buildField(cols, rows, bmbs);
 });
-document.querySelector('#settings-grade-1').click();
 document.querySelectorAll('.settings input[name="settings-grade"]').forEach(el => el.addEventListener('click', () => {
     radioGrade();
     buildField(cols, rows, bmbs);

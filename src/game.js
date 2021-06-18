@@ -104,9 +104,7 @@ function cellClick(ndx) {
         }, 100);
     });
 
-    el.classList.add(`bombs-num${bmbsQ}`);
-    elM.open = true;
-    fieldModel.cellsOpen++;
+    el.classList.add(`bombs-q${bmbsQ}`);
 
     if (bmbsQ) {
         el.textContent = bmbsQ;
