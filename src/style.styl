@@ -1,0 +1,139 @@
+:root
+  --cols: 9
+  --cell-size: 24px
+  --field-bg: #d4d4d4
+  --field-bdc: #aaa
+  --cell-bg-h: #c4c4c4
+  --cell-bdc: #fff
+
+h1
+  color: red
+
+label + label
+  margin-bottom: 0.5em
+
+#field-info
+  margin-bottom: 0.25em
+  line-height: 1
+  color: #444
+
+#field-controls
+  margin: 0.5em 0
+
+  #reset-btn
+    margin-bottom: 1em
+
+  .settings
+    .settings-section
+      margin-bottom: 1em
+
+#field
+  position: relative
+  display: flex
+  flex-wrap: wrap
+  background-color: var(--field-bg)
+  border: 1px solid var(--field-bdc)
+  border-top-width: 0
+  border-left-width: 0
+  user-select: none
+  width: calc(var(--cols) * var(--cell-size))
+
+  &.gameover
+    pointer-events: none
+    --field-bg: #c4c4c4
+    --cell-bdc: #d6d6d6
+  &.gameover.win
+    --field-bg: #d8eccb
+    --cell-bdc: #f1ffe8
+
+  .cell
+    position: relative
+    display: flex
+    width: var(--cell-size)
+    height: var(--cell-size)
+    font-size: 14px
+    line-height: 1
+    align-items: center
+    justify-content: center
+    border: 3px outset var(--cell-bdc)
+    box-sizing: border-box
+    cursor: pointer
+    font-weight: bold
+    animation-duration: .35s
+    animation-iteration-count: 1
+    animation-timing-function: ease-out
+    animation-fill-mode: forwards
+
+    &:not(.open):hover
+      background-color: var(--cell-bg-h)
+
+    &.open
+      border: 1px solid var(--field-bdc)
+      border-bottom-width: 0
+      border-right-width: 0
+
+    &:after
+      position: absolute
+      display: flex
+      top: 0
+      right: 0
+      left: 0
+      bottom: 0
+      align-items: center
+      justify-content: center
+      background-size: 12px
+      background-repeat: no-repeat
+      background-position: center
+
+    &.flag:after
+      content: ''
+      background-image: url(flag.svg)
+    &.bomb:after
+      content: ''
+      background-image: url(mine.svg)
+    &.bomb.flag:after
+      background-color: #0f7f1240
+    &.wrong:after
+      content: ''
+      background-image: url(no_mine.svg)
+      background-color: #d9474740
+
+    &[class*="bombs-num"]
+      color: #7e0308
+    &.bombs-num1
+      color: #0b24fb
+    &.bombs-num2
+      color: #0f7f12
+    &.bombs-num3
+      color: #fc0d1b
+    &.bombs-num4
+      color: #020c7e
+
+    &.flash
+      animation-name: flash
+    &.boom0
+      animation-name: boom0
+    &.boom1
+      animation-name: boom1
+      animation-delay: .1s
+    &.boom2
+      animation-name: boom2
+      animation-delay: .25s
+
+
+@keyframes flash
+  0%
+    background-color: #e2e2e2
+@keyframes boom0
+  0%
+    background-color: #d94747
+  99%
+    background-color: none
+  100%
+    background-color: #d9474780
+@keyframes boom1
+  0%
+    background-color: #c6713ed1
+@keyframes boom2
+  0%
+    background-color: #f0b45177
