@@ -1,5 +1,6 @@
 {
   "name": "rollup-starter-app",
+  "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "@rollup/plugin-commonjs": "^19.0.0",
@@ -18,7 +19,7 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "watch": "rollup -c -w",
+    "watch": "rollup -c -w --no-treeshaking",
     "open": "sleep 5 && open http://localhost:42735",
     "dev": "npm-run-all --parallel watch open"
   }

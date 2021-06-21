@@ -47,6 +47,22 @@ export default function buildField(cols = 9, rows = 9, bmbs = 10) {
 
         el.addEventListener('click', cellClick.bind(this, i));
         el.addEventListener('contextmenu', cellRightClick.bind(this, i));
+
+        let touchTimer;
+        function touchstart(e) {
+            e.preventDefault();
+            if (!touchTimer) {
+                touchTimer = setTimeout(cellRightClick.bind(this, i), 250);
+            }
+        }
+        function touchend() {
+            if (touchTimer) {
+                clearTimeout(touchTimer);
+                touchTimer = null;
+                cellClick(i);
+            }
+        }
+
         objArr.push(el);
     });
 
@@ -86,27 +102,13 @@ function cellClick(ndx) {
         return
     }
 
-    el.classList.add('flash');
-    setTimeout(() => {
-        el.classList.remove('flash');
-    }, 500);
-
     let surArr = findSurrounds(ndx);
     surArr.forEach(x => {
         fieldModel.cells[x].bomb && bmbsQ++;
-
-        const elx = field.querySelector(`[ndx="${x}"]`);
-        setTimeout(() => {
-            elx.classList.add('flash');
-            setTimeout(() => {
-                elx.classList.remove('flash');
-            }, 400);
-        }, 100);
     });
 
-    el.classList.add(`bombs-q${bmbsQ}`);
-
     if (bmbsQ) {
+        el.classList.add(`bombs-q${bmbsQ}`);
         el.textContent = bmbsQ;
     } else {
         surArr.forEach(x => cellClick(x));
@@ -117,8 +119,12 @@ function cellClick(ndx) {
         return
     }
 }
-
-function findSurrounds(ndx, second = false) {
+/**
+ * @returns {number[]}  Surrounding cell indexes
+ * @param {number|number[]} ndx     Initial cell index or array of indexes
+ * @param {boolean}         second  If level two surroundings needed
+ */
+ function findSurrounds(ndx, second = false) {
     const width = fieldModel.cols;
     let surArr = [],
         surFirstArr = [],

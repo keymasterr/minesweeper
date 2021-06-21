@@ -6,6 +6,9 @@
   --cell-bg-h: #c4c4c4
   --cell-bdc: #fff
 
+  font-size: 16px
+  line-height: 1.25
+
 body
   text-align: center
 
@@ -38,20 +41,24 @@ label + label
   flex-wrap: wrap
   margin: 0 auto
   background-color: var(--field-bg)
-  border: 1px solid var(--field-bdc)
-  border-top-width: 0
-  border-left-width: 0
+  border-color: var(--field-bdc)
+  border-width: 1px 0 0 1px
+  border-style: solid
   user-select: none
   width: calc(var(--cols) * var(--cell-size))
 
   &.gameover
     pointer-events: none
-    --field-bg: #f7e1e1
     --cell-bdc: #fee
+    --field-bg: #f7e1e1
+    --field-bdc: #f2c9c9
+    box-shadow: 0 0 100px 100px var(--field-bg)
+    z-index: -1
 
   &.gameover.win
-    --field-bg: #d8eccb
     --cell-bdc: #f1ffe8
+    --field-bg: #d8eccb
+    --field-bdc: #c1dbaf
 
   .cell
     position: relative
@@ -64,7 +71,6 @@ label + label
     justify-content: center
     border: 3px outset var(--cell-bdc)
     box-sizing: border-box
-    cursor: pointer
     font-weight: bold
     animation-duration: .35s
     animation-iteration-count: 1
@@ -75,9 +81,9 @@ label + label
       background-color: var(--cell-bg-h)
 
     &.open
-      border: 1px solid var(--field-bdc)
-      border-bottom-width: 0
-      border-right-width: 0
+      border-style: solid
+      border-color: var(--field-bdc)
+      border-width: 0 1px 1px 0
 
     &:after
       position: absolute
@@ -122,8 +128,6 @@ label + label
     &.bombs-q8
       color: #808080
 
-    &.flash
-      animation-name: flash
     &.boom0
       animation-name: boom0
     &.boom1
@@ -133,10 +137,6 @@ label + label
       animation-name: boom2
       animation-delay: .25s
 
-
-@keyframes flash
-  0%
-    background-color: #e2e2e2
 @keyframes boom0
   0%
     background-color: #d94747
