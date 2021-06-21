@@ -11,6 +11,7 @@
 
 body
   text-align: center
+  user-select: none
 
 h1
   color: red
@@ -41,10 +42,9 @@ label + label
   flex-wrap: wrap
   margin: 0 auto
   background-color: var(--field-bg)
-  border-color: var(--field-bdc)
-  border-width: 1px 0 0 1px
-  border-style: solid
-  user-select: none
+  border: 1px solid var(--field-bdc)
+  border-top-width: 0
+  border-left-width: 0
   width: calc(var(--cols) * var(--cell-size))
 
   &.gameover
@@ -81,9 +81,9 @@ label + label
       background-color: var(--cell-bg-h)
 
     &.open
-      border-style: solid
-      border-color: var(--field-bdc)
-      border-width: 0 1px 1px 0
+      border: 1px solid var(--field-bdc)
+      border-bottom-width: 0
+      border-right-width: 0
 
     &:after
       position: absolute

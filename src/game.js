@@ -40,28 +40,35 @@ export default function buildField(cols = 9, rows = 9, bmbs = 10) {
         fieldModel.cells[v].bomb = true;
     });
 
+    let touchStarted = false;
     fieldModel.cells.forEach((_, i) => {
         const el = document.createElement('div');
         el.classList.add('cell');
         el.setAttribute('ndx', i);
 
-        el.addEventListener('click', cellClick.bind(this, i));
-        el.addEventListener('contextmenu', cellRightClick.bind(this, i));
-
-        let touchTimer;
-        function touchstart(e) {
-            e.preventDefault();
-            if (!touchTimer) {
-                touchTimer = setTimeout(cellRightClick.bind(this, i), 250);
+        function touchstart() {
+            if (!touchStarted) {
+                touchStarted = true;
+                setTimeout(() => {
+                    if (touchStarted) {
+                        cellRightClick(i);
+                        touchStarted = false;
+                    }
+                }, 400);
             }
         }
         function touchend() {
-            if (touchTimer) {
-                clearTimeout(touchTimer);
-                touchTimer = null;
+            if (touchStarted) {
                 cellClick(i);
+                touchStarted = false;
             }
         }
+
+        el.addEventListener('touchstart', touchstart, false);
+        el.addEventListener('touchend', touchend, false);
+        el.addEventListener('touchmove', () => {touchStarted = false});
+        el.addEventListener('click', cellClick.bind(this, i));
+        el.addEventListener('contextmenu', cellRightClick.bind(this, i));
 
         objArr.push(el);
     });
@@ -72,7 +79,7 @@ export default function buildField(cols = 9, rows = 9, bmbs = 10) {
 }
 
 function cellRightClick(ndx) {
-    event.preventDefault();
+    event && event.preventDefault();
     const elM = fieldModel.cells[ndx];
     if (elM.open) { return }
 
