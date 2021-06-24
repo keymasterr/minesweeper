@@ -10,28 +10,32 @@
     <link rel="manifest" href="./manifest.webmanifest">
 </head>
 <body>
-	<h1>Minesweeper</h1>
-    <div id="field-controls">
-        <div class="settings">
+    <div id="header">
+        <h1><span class="mob-aware"><span class="def">Minesweeper</span><span class="mob">M</span></span></h1>
+        <div id="settings">
             <div class="settings-section settings-grade">
                 <label>
                     <input type="radio" name="settings-grade" value="1" id="settings-grade-1" checked="">
-                    Beginner
+                    <span class="mob-aware"><span class="def">Easy</span><span class="mob">1</span></span>
                 </label>
                 <label>
                     <input type="radio" name="settings-grade" value="2" id="settings-grade-2">
-                    Intermediate
+                    <span class="mob-aware"><span class="def">Medium</span><span class="mob">2</span></span>
                 </label>
                 <label>
                     <input type="radio" name="settings-grade" value="3" id="settings-grade-3">
-                    Expert
+                    <span class="mob-aware"><span class="def">Hard</span><span class="mob">3</span></span>
+                </label>
+                <label>
+                    <input type="radio" name="settings-grade" value="4" id="settings-grade-4">
+                    <span class="mob-aware"><span class="def">Mobile</span><span class="mob">M</span></span>
                 </label>
             </div>
         </div>
-    </div>
-    <div id="field-info">
-        <span id="field-info-text"></span>
-        <button type="reset" id="reset-btn">Reset</button>
+        <div id="info">
+            <span id="info-text"></span>
+            <span class="mob-aware"><span class="def"><button type="reset" id="reset-btn">Reset</button></span></span>
+        </div>
     </div>
 	<div id="field"></div>
 

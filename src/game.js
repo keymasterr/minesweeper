@@ -1,5 +1,5 @@
 const field = document.querySelector('#field');
-const fieldInfoText = document.querySelector('#field-info-text');
+const infoText = document.querySelector('#info-text');
 
 let fieldModel = {};
 
@@ -11,7 +11,7 @@ export default function buildField(cols = 9, rows = 9, bmbs = 10) {
     field.innerHTML = '';
     field.classList.remove('gameover', 'win');
 
-    fieldInfoText.innerHTML = `${cols}×${rows}, <span id="flags-number">0</span>/${bmbs} mines`;
+    infoText.innerHTML = `${cols}×${rows}, <span id="flags-number">0</span>/${bmbs}<span class="mob-aware"><span class="def"> mines</span></span>`;
 
     let objArr = [],
         bmbArr = [],
@@ -54,7 +54,7 @@ export default function buildField(cols = 9, rows = 9, bmbs = 10) {
                         cellRightClick(i);
                         touchStarted = false;
                     }
-                }, 400);
+                }, 250);
             }
         }
         function touchend() {
@@ -89,7 +89,7 @@ function cellRightClick(ndx) {
     elM.flag
         ? fieldModel.flags++
         : fieldModel.flags--;
-    document.querySelector('#field-info #flags-number').textContent = fieldModel.flags;
+    document.querySelector('#info #flags-number').textContent = fieldModel.flags;
 }
 
 function cellClick(ndx) {

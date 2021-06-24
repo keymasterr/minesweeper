@@ -1,40 +1,91 @@
 :root
   --cols: 9
   --cell-size: 24px
+  --bg: #fff
+  --text: #000
   --field-bg: #d4d4d4
   --field-bdc: #aaa
-  --cell-bg-h: #c4c4c4
   --cell-bdc: #fff
+  --cell-bg-h: #c4c4c4
+  --bq1: #0b23f9
+  --bq2: #107d13
+  --bq3: #fb0d1c
+  --bq4: #030d7e
+  --bq5: #7d0508
+  --bq6: #11807f
+  --bq7: #000
+  --bq8: #808080
+  --flag-bomb: #0f7f1240
+  --flag-wrong: #d9474740
+  --boom0-after:#d9474780
+  --boom0: #d94747
+  --boom1: #c6713ed1
+  --boom2: #f0b45177
+  --cell-bdc-gameover: #fee
+  --field-bg-gameover: #f7e1e1
+  --field-bdc-gameover: #f2c9c9
+  --cell-bdc-win: #f1ffe8
+  --field-bg-win: #d8eccb
+  --field-bdc-win: #c1dbaf
 
   font-size: 16px
   line-height: 1.25
 
+:root[data-mobile="true"]
+  --cell-size: 32px
+
+
+
 body
   text-align: center
   user-select: none
+  background: var(--bg)
+  color: var(--text)
 
 h1
   color: red
-  margin-bottom: 0
+  margin: 0
+
+  [data-mobile="true"] &
+    display: inline-block
+
+[data-mobile="true"]
+  .mob-aware
+    .def
+      display: none
+[data-mobile="false"]
+  .mob-aware
+    .mob
+      display: none
+
+input[type="radio"]
+  margin: 0
+  margin-right: 0.3em
 
 label + label
   margin-left: 0.5em
 
-#field-info
-  margin-bottom: 0.25em
-  line-height: 1
-  color: #444
+#header
+  margin-top: 2em
+  margin-bottom: 0.5em
 
-  #field-info-text
-    margin-right: 2em
-    font-variant-numeric: tabular-nums
+  [data-mobile="true"] &
+    margin: 0
+    display: flex
+    align-items: baseline
+    justify-content: space-between
 
-#field-controls
-  margin: 0.5em 0 1.5em
-
-  .settings
+  #settings
     .settings-section
       margin-bottom: 1em
+      white-space: nowrap
+
+  #info
+    #field-info-text
+      font-variant-numeric: tabular-nums
+
+    #reset-btn
+      margin-left: 2em
 
 #field
   position: relative
@@ -49,27 +100,27 @@ label + label
 
   &.gameover
     pointer-events: none
-    --cell-bdc: #fee
-    --field-bg: #f7e1e1
-    --field-bdc: #f2c9c9
+    --cell-bdc: var(--cell-bdc-gameover)
+    --field-bg: var(--field-bg-gameover)
+    --field-bdc: var(--field-bdc-gameover)
     box-shadow: 0 0 100px 100px var(--field-bg)
     z-index: -1
 
   &.gameover.win
-    --cell-bdc: #f1ffe8
-    --field-bg: #d8eccb
-    --field-bdc: #c1dbaf
+    --cell-bdc: var(--cell-bdc-win)
+    --field-bg: var(--field-bg-win)
+    --field-bdc: var(--field-bdc-win)
 
   .cell
     position: relative
     display: flex
     width: var(--cell-size)
     height: var(--cell-size)
-    font-size: 14px
+    font-size: calc(var(--cell-size) * .6)
     line-height: 1
     align-items: center
     justify-content: center
-    border: 3px outset var(--cell-bdc)
+    border: calc(var(--cell-size) * .125) outset var(--cell-bdc)
     box-sizing: border-box
     font-weight: bold
     animation-duration: .35s
@@ -94,7 +145,7 @@ label + label
       bottom: 0
       align-items: center
       justify-content: center
-      background-size: 12px
+      background-size: calc(var(--cell-size) / 2)
       background-repeat: no-repeat
       background-position: center
 
@@ -105,28 +156,28 @@ label + label
       content: ''
       background-image: url(mine.svg)
     &.bomb.flag:after
-      background-color: #0f7f1240
+      background-color: var(--flag-bomb)
     &.wrong:after
       content: ''
       background-image: url(no_mine.svg)
-      background-color: #d9474740
+      background-color: var(--flag-wrong)
 
     &.bombs-q1
-      color: #0b23f9
+      color: var(--bq1)
     &.bombs-q2
-      color: #107d13
+      color: var(--bq2)
     &.bombs-q3
-      color: #fb0d1c
+      color: var(--bq3)
     &.bombs-q4
-      color: #030d7e
+      color: var(--bq4)
     &.bombs-q5
-      color: #7d0508
+      color: var(--bq5)
     &.bombs-q6
-      color: #11807f
+      color: var(--bq6)
     &.bombs-q7
-      color: #000
+      color: var(--bq7)
     &.bombs-q8
-      color: #808080
+      color: var(--bq8)
 
     &.boom0
       animation-name: boom0
@@ -139,14 +190,14 @@ label + label
 
 @keyframes boom0
   0%
-    background-color: #d94747
+    background-color: var(--boom0)
   99%
     background-color: none
   100%
-    background-color: #d9474780
+    background-color: var(--boom0-after)
 @keyframes boom1
   0%
-    background-color: #c6713ed1
+    background-color: var(--boom1)
 @keyframes boom2
   0%
-    background-color: #f0b45177
+    background-color: var(--boom2)
